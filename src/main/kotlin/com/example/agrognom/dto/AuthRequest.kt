@@ -5,5 +5,3 @@ data class AuthRequest(
     val password: String,
     val email: String? = null
 )
-
-data class AuthResponse(val token: String)

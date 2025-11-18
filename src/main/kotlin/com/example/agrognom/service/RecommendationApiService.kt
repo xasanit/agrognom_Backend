@@ -13,11 +13,11 @@ import org.springframework.web.client.RestTemplate
 @Service
 class RecommendationApiService(
     private val restTemplate: RestTemplate,
-    @Value("\${gemini.apiKey}") private val apiKey: String
+    @Value("\${gemini.apiKey}") private val apiKey: String,
+    @Value("\${gemini.baseUrl}") private val baseUrl: String
 ) {
 
     fun getRecommendations(prompt: String): String {
-        val url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
         val headers = HttpHeaders().apply {
             contentType = MediaType.APPLICATION_JSON
@@ -33,7 +33,7 @@ class RecommendationApiService(
         val entity = HttpEntity(requestBody, headers)
 
         val response = restTemplate.exchange(
-            url,
+            baseUrl,
             HttpMethod.POST,
             entity,
             GeminiResponse::class.java

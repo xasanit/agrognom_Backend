@@ -12,14 +12,29 @@ class JwtService (
 ) {
     private val secretKey = Keys.hmacShaKeyFor(secret.toByteArray())
 
-    fun generateToken(username: String?): String {
+    private val ACCESS_EXP = 1000 * 60 * 15          // 15 минут
+    private val REFRESH_EXP = 1000L * 60 * 60 * 24 * 30 // 30 дней
+
+    fun generateAccessToken(username: String?): String {
         return Jwts.builder()
             .setSubject(username)
             .setIssuedAt(Date())
-            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24 часа
+            .setExpiration(Date(System.currentTimeMillis() + ACCESS_EXP)) // 15 минут
             .signWith(secretKey)
             .compact()
     }
+
+    fun generateRefreshToken(username: String?): String {
+        return Jwts.builder()
+            .setSubject(username)
+            .setIssuedAt(Date())
+            .setExpiration(Date(System.currentTimeMillis() + REFRESH_EXP)) // 30 дней
+            .signWith(secretKey)
+            .compact()
+    }
+
+    fun getRefreshExpiryDate(): Date =
+        Date(System.currentTimeMillis() + REFRESH_EXP)
 
     fun extractUsername(token: String): String? {
         return try {

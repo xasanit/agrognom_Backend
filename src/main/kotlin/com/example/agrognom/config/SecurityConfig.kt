@@ -30,7 +30,10 @@ class SecurityConfig (
                 it.requestMatchers("/api/auth/**").permitAll()
                 it.anyRequest().authenticated()
             }
-            .addFilterBefore(JwtAuthFilter(jwtService, userRepository), UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterBefore(
+                JwtAuthFilter(jwtService, userRepository),
+                UsernamePasswordAuthenticationFilter::class.java
+            )
             .build()
     }
 }
