@@ -1,6 +1,6 @@
 package com.example.agrognom.service
 
-import com.example.agrognom.dto.WeatherResponse
+import com.example.agrognom.dto.WeatherApiResponse
 import com.example.agrognom.entities.Field
 import com.example.agrognom.entities.Recommendation
 import com.example.agrognom.repository.RecommendationRepository
@@ -12,7 +12,7 @@ class RecommendationService (
     private val recommendationRepository: RecommendationRepository,
 ) {
 
-    fun getRecommendation(field: Field, weather: WeatherResponse): String {
+    fun getRecommendation(field: Field, weather: WeatherApiResponse): String {
 
         val prompt = """
         Дай рекомендации по уходу за полем со следующими данными: 
