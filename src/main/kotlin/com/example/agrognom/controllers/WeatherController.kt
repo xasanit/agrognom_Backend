@@ -1,6 +1,6 @@
 package com.example.agrognom.controllers
 
-import com.example.agrognom.dto.WeatherApiResponse
+import com.example.agrognom.dto.WeatherResponse
 import com.example.agrognom.service.WeatherApiService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -16,7 +16,7 @@ class WeatherController (
     @GetMapping("/{regionId}")
     fun getWeather(
         @PathVariable regionId: Long
-    ): WeatherApiResponse {
+    ): WeatherResponse {
 
         return weatherApiService.getWeather(regionId)
 
